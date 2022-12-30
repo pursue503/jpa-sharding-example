@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  myslq:
+    platform: linux/x86_64
+    image: mysql:8.0
+    container_name: jpa_db_sharding_mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=jpa_db_sharding_mysql
