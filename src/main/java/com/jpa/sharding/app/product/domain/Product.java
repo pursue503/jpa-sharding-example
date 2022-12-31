@@ -1,5 +1,6 @@
 package com.jpa.sharding.app.product.domain;
 
+import com.jpa.sharding.config.constant.ConstantDB;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -7,7 +8,9 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Table
+@Table(
+        catalog = ConstantDB.SHARD_DB_SCHEMA_NAME
+)
 @NoArgsConstructor
 @Entity
 public class Product {
