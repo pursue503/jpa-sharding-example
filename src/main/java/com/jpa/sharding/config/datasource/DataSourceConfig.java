@@ -29,21 +29,21 @@ public class DataSourceConfig {
 
         Map<Object, Object> dataSourceMap = new HashMap<>();
 
-        for (int i = 1; i <= dbProperties.getCount(); i++) {
-            HikariConfig hikariConfig = new HikariConfig();
-            hikariConfig.setDriverClassName(dbProperties.getDriverClassName());
-            hikariConfig.setUsername(dbProperties.getUserName());
-            hikariConfig.setPassword(dbProperties.getPassWord());
-            hikariConfig.setJdbcUrl(dbProperties.getJdbcUrl() + i);
-            hikariConfig.setMaximumPoolSize(3);
-            hikariConfig.setMinimumIdle(1);
-            dataSourceMap.put(MASTER + i, new HikariDataSource(hikariConfig));
-            dataSourceMap.put(SLAVE + i, new HikariDataSource(hikariConfig));
-        }
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setDriverClassName(dbProperties.getDriverClassName());
+        hikariConfig.setUsername(dbProperties.getUserName());
+        hikariConfig.setPassword(dbProperties.getPassWord());
+        hikariConfig.setJdbcUrl(dbProperties.getJdbcUrl());
+        hikariConfig.setMaximumPoolSize(40);
+        hikariConfig.setMinimumIdle(10);
+        dataSourceMap.put(MASTER, new HikariDataSource(hikariConfig));
+        dataSourceMap.put(SLAVE, new HikariDataSource(hikariConfig));
 
         DBRoutingDataSource routingDataSource = new DBRoutingDataSource();
-        routingDataSource.setDefaultTargetDataSource(dataSourceMap.get(MASTER + 1)); // 변경 필요
+        routingDataSource.setDefaultTargetDataSource(dataSourceMap.get(MASTER)); // 변경 필요
         routingDataSource.setTargetDataSources(dataSourceMap);
+
+
         return routingDataSource;
     }
 

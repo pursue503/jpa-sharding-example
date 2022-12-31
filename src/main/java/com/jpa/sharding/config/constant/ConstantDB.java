@@ -10,4 +10,6 @@ public class ConstantDB {
 
     public static final String SHARD_TRANSACTION_MANAGER_NAME = "shardTransactionManagerName";
 
+    public static final String SHARD_DB_SCHEMA_NAME =  "jpa_shard_#shard_number#";
+
 }
